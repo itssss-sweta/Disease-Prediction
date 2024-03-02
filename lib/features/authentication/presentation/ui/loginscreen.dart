@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: Button(
               text: 'Login',
-              color: teal,
+              color: ColorPalate.teal,
               textStyle: semibold16w,
               onTap: () {},
             ),

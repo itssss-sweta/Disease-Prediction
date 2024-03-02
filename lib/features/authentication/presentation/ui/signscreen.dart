@@ -18,7 +18,7 @@ class _SignScreenState extends State<SignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: ColorPalate.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +44,7 @@ class _SignScreenState extends State<SignScreen> {
             mHeight,
             Button(
                 text: 'Login',
-                color: teal,
+                color: ColorPalate.teal,
                 textStyle: semibold16w,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.loginScreen);
@@ -53,7 +53,7 @@ class _SignScreenState extends State<SignScreen> {
             sHeight,
             Button(
                 text: 'Register',
-                color: white,
+                color: ColorPalate.white,
                 textStyle: semibold16t,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.signupScreen);

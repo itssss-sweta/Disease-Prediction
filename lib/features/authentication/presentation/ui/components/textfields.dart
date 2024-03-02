@@ -73,13 +73,13 @@ class _TextContainerState extends State<TextContainer> {
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
-                    color: lGrey,
+                    color: ColorPalate.lGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
-                    color: lGrey,
+                    color: ColorPalate.lGrey,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(

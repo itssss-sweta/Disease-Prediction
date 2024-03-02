@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Center(
             child: Button(
               text: 'Sign Up',
-              color: teal,
+              color: ColorPalate.teal,
               textStyle: semibold16w,
               onTap: () {},
             ),

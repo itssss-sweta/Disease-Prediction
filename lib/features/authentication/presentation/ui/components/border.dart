@@ -12,7 +12,7 @@ class SignBorder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: teal,
+      backgroundColor: ColorPalate.teal,
       appBar: AppBar(
         elevation: 0,
         title: Text(
@@ -20,14 +20,14 @@ class SignBorder extends StatelessWidget {
           style: bold20w,
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: teal,
+        backgroundColor: ColorPalate.teal,
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacementNamed(context, Routes.signScreen);
           },
           icon: Icon(
             Icons.arrow_back_ios,
-            color: white,
+            color: ColorPalate.white,
           ),
         ),
       ),
@@ -39,7 +39,7 @@ class SignBorder extends StatelessWidget {
             padding: equalmaxpadding,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
-              color: white,
+              color: ColorPalate.white,
             ),
             child: Center(
               child: widget,
