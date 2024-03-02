@@ -33,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBoxHeightAndWidth.sizedBoxHeight5,
           Text(
             'PredictWell',
-            style: semibold16t,
+            style: TextStyleCustomized.semibold16teal,
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight35,
           TextContainer(
@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Button(
               text: 'Sign Up',
               color: ColorPalate.teal,
-              textStyle: semibold16w,
+              textStyle: TextStyleCustomized.semibold16white,
               onTap: () {},
             ),
           ),

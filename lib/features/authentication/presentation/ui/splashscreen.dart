@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               //ref:chatgpt
               'PredictWell',
-              style: medium30,
+              style: TextStyleCustomized.medium30grey,
             ),
           ],
         ),

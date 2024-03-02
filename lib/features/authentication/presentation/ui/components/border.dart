@@ -17,7 +17,7 @@ class SignBorder extends StatelessWidget {
         elevation: 0,
         title: Text(
           title ?? '',
-          style: bold20w,
+          style: TextStyleCustomized.bold20white,
         ),
         automaticallyImplyLeading: false,
         backgroundColor: ColorPalate.teal,

@@ -31,21 +31,21 @@ class _SignScreenState extends State<SignScreen> {
             SizedBoxHeightAndWidth.sizedBoxHeight15,
             Text(
               'Let\'s Get Started!',
-              style: bold22,
+              style: TextStyleCustomized.bold22black,
             ),
             SizedBoxHeightAndWidth.sizedBoxHeight5,
             Text(
               //src:chatgpt
               'Secure login, health insights begin. Your wellness journey, our prediction.',
               softWrap: true,
-              style: regular16,
+              style: TextStyleCustomized.regular16black,
               textAlign: TextAlign.center,
             ),
             SizedBoxHeightAndWidth.sizedBoxHeight20,
             Button(
                 text: 'Login',
                 color: ColorPalate.teal,
-                textStyle: semibold16w,
+                textStyle: TextStyleCustomized.semibold16white,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.loginScreen);
                   log('pressed');
@@ -54,7 +54,7 @@ class _SignScreenState extends State<SignScreen> {
             Button(
                 text: 'Register',
                 color: ColorPalate.white,
-                textStyle: semibold16t,
+                textStyle: TextStyleCustomized.semibold16teal,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.signupScreen);
                   log('pressed');

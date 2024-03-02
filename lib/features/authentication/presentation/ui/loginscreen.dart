@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBoxHeightAndWidth.sizedBoxHeight5,
           Text(
             'PredictWell',
-            style: semibold16t,
+            style: TextStyleCustomized.semibold16teal,
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight35,
           TextContainer(
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Button(
               text: 'Login',
               color: ColorPalate.teal,
-              textStyle: semibold16w,
+              textStyle: TextStyleCustomized.semibold16white,
               onTap: () {},
             ),
           ),
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextSpan(
                     text: ' Sign Up',
-                    style: medium15t,
+                    style: TextStyleCustomized.medium15teal,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         log('text tapped');
