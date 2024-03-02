@@ -73,13 +73,13 @@ class _TextContainerState extends State<TextContainer> {
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
-                    color: ColorPalate.lGrey,
+                    color: ColorPalate.lightGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
-                    color: ColorPalate.lGrey,
+                    color: ColorPalate.lightGrey,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
@@ -89,7 +89,7 @@ class _TextContainerState extends State<TextContainer> {
                   ),
                 ),
               )),
-          sHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight15,
         ],
       ),
     );

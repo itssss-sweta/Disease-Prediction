@@ -35,8 +35,8 @@ class SignBorder extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Container(
-            margin: equalmaxpadding,
-            padding: equalmaxpadding,
+            margin: MarginOrPadding.equalmaxpadding,
+            padding: MarginOrPadding.equalmaxpadding,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               color: ColorPalate.white,

@@ -33,12 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
             'assets/dna.png',
             height: 70,
           ),
-          xsHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight5,
           Text(
             'PredictWell',
             style: semibold16t,
           ),
-          xxlHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight35,
           TextContainer(
             controller: email,
             hintText: 'Enter your email',
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             type: TextInputType.visiblePassword,
             obscureText: true,
           ),
-          sHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight15,
           Center(
             child: Button(
               text: 'Login',
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onTap: () {},
             ),
           ),
-          sHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight15,
           Center(
             child: RichText(
               text: TextSpan(

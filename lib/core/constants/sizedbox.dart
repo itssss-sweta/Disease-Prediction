@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
 
-SizedBox xsHeight = const SizedBox(
-  height: 5,
-);
-SizedBox xxsHeight = const SizedBox(
-  height: 10,
-);
-SizedBox sHeight = const SizedBox(
-  height: 15,
-);
-SizedBox mHeight = const SizedBox(
-  height: 20,
-);
-SizedBox lHeight = const SizedBox(
-  height: 25,
-);
-SizedBox xlHeight = const SizedBox(
-  height: 30,
-);
-SizedBox xxlHeight = const SizedBox(
-  height: 35,
-);
-SizedBox xswidth = const SizedBox(
-  width: 5,
-);
-SizedBox xxswidth = const SizedBox(
-  width: 10,
-);
-SizedBox swidth = const SizedBox(
-  width: 15,
-);
-SizedBox mwidth = const SizedBox(
-  width: 20,
-);
-SizedBox lwidth = const SizedBox(
-  width: 25,
-);
-SizedBox xlwidth = const SizedBox(
-  width: 30,
-);
-SizedBox xxlwidth = const SizedBox(
-  width: 35,
-);
+class SizedBoxHeightAndWidth {
+  static SizedBox sizedBoxHeight5 = const SizedBox(
+    height: 5,
+  );
+  static SizedBox sizedBoxHeight10 = const SizedBox(
+    height: 10,
+  );
+  static SizedBox sizedBoxHeight15 = const SizedBox(
+    height: 15,
+  );
+  static SizedBox sizedBoxHeight20 = const SizedBox(
+    height: 20,
+  );
+  static SizedBox sizedBoxHeight25 = const SizedBox(
+    height: 25,
+  );
+  static SizedBox sizedBoxHeight30 = const SizedBox(
+    height: 30,
+  );
+  static SizedBox sizedBoxHeight35 = const SizedBox(
+    height: 35,
+  );
+  static SizedBox sizedBoxWidth5 = const SizedBox(
+    width: 5,
+  );
+  static SizedBox sizedBoxWidth10 = const SizedBox(
+    width: 10,
+  );
+  static SizedBox sizedBoxWidth15 = const SizedBox(
+    width: 15,
+  );
+  static SizedBox sizedBoxWidth20 = const SizedBox(
+    width: 20,
+  );
+  static SizedBox sizedBoxWidth25 = const SizedBox(
+    width: 25,
+  );
+  static SizedBox sizedBoxWidth30 = const SizedBox(
+    width: 30,
+  );
+  static SizedBox sizedBoxWidth35 = const SizedBox(
+    width: 35,
+  );
+}

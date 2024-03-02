@@ -28,12 +28,12 @@ class _SignScreenState extends State<SignScreen> {
               'assets/dna.png',
               height: 60,
             ),
-            sHeight,
+            SizedBoxHeightAndWidth.sizedBoxHeight15,
             Text(
               'Let\'s Get Started!',
               style: bold22,
             ),
-            xsHeight,
+            SizedBoxHeightAndWidth.sizedBoxHeight5,
             Text(
               //src:chatgpt
               'Secure login, health insights begin. Your wellness journey, our prediction.',
@@ -41,7 +41,7 @@ class _SignScreenState extends State<SignScreen> {
               style: regular16,
               textAlign: TextAlign.center,
             ),
-            mHeight,
+            SizedBoxHeightAndWidth.sizedBoxHeight20,
             Button(
                 text: 'Login',
                 color: ColorPalate.teal,
@@ -50,7 +50,7 @@ class _SignScreenState extends State<SignScreen> {
                   Navigator.pushNamed(context, Routes.loginScreen);
                   log('pressed');
                 }),
-            sHeight,
+            SizedBoxHeightAndWidth.sizedBoxHeight15,
             Button(
                 text: 'Register',
                 color: ColorPalate.white,

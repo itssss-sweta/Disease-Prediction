@@ -15,7 +15,7 @@ class Button extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: padding,
+        padding: MarginOrPadding.padding,
         height: 55,
         width: MediaQuery.sizeOf(context).width / 1.5,
         decoration: BoxDecoration(

@@ -30,12 +30,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'assets/dna.png',
             height: 70,
           ),
-          xsHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight5,
           Text(
             'PredictWell',
             style: semibold16t,
           ),
-          xxlHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight35,
           TextContainer(
             controller: name,
             hintText: 'Enter your name',
@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             type: TextInputType.visiblePassword,
             obscureText: true,
           ),
-          sHeight,
+          SizedBoxHeightAndWidth.sizedBoxHeight15,
           Center(
             child: Button(
               text: 'Sign Up',

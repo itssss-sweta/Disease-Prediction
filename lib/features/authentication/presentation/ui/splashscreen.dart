@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 150,
               height: 150,
             ),
-            sHeight,
+            SizedBoxHeightAndWidth.sizedBoxHeight15,
             Text(
               //ref:chatgpt
               'PredictWell',
