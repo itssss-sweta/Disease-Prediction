@@ -24,6 +24,14 @@ class TextContainer extends StatefulWidget {
 }
 
 class _TextContainerState extends State<TextContainer> {
+  bool showPassword = false;
+
+  void showOrHidePassword() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,7 +45,11 @@ class _TextContainerState extends State<TextContainer> {
               maxLines: 1,
               controller: widget.controller,
               keyboardType: widget.type,
-              obscureText: widget.obscureText ?? false,
+              obscureText: (widget.obscureText != null)
+                  ? (showPassword)
+                      ? widget.obscureText == false
+                      : widget.obscureText == true
+                  : false,
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 prefixIcon: Padding(
@@ -46,9 +58,17 @@ class _TextContainerState extends State<TextContainer> {
                 ),
                 filled: true,
                 suffixIcon: (widget.suffix != null && widget.suffix == true)
-                    ? IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.visibility_off_outlined))
+                    ? (showPassword)
+                        ? IconButton(
+                            onPressed: () {
+                              showOrHidePassword();
+                            },
+                            icon: const Icon(Icons.visibility_outlined))
+                        : IconButton(
+                            onPressed: () {
+                              showOrHidePassword();
+                            },
+                            icon: const Icon(Icons.visibility_off_outlined))
                     : null,
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),

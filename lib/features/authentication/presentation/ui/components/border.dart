@@ -4,16 +4,11 @@ import 'package:dis_pred/core/constants/padding.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:flutter/material.dart';
 
-class SignBorder extends StatefulWidget {
+class SignBorder extends StatelessWidget {
   final Widget? widget;
   final String? title;
   const SignBorder({super.key, this.widget, this.title});
 
-  @override
-  State<SignBorder> createState() => _SignBorderState();
-}
-
-class _SignBorderState extends State<SignBorder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +16,7 @@ class _SignBorderState extends State<SignBorder> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          widget.title ?? '',
+          title ?? '',
           style: bold20w,
         ),
         automaticallyImplyLeading: false,
@@ -37,15 +32,18 @@ class _SignBorderState extends State<SignBorder> {
         ),
       ),
       body: Center(
-        child: Container(
-          margin: equalmaxpadding,
-          padding: equalmaxpadding,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            color: white,
-          ),
-          child: Center(
-            child: widget.widget,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Container(
+            margin: equalmaxpadding,
+            padding: equalmaxpadding,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              color: white,
+            ),
+            child: Center(
+              child: widget,
+            ),
           ),
         ),
       ),
