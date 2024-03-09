@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
@@ -7,6 +6,7 @@ import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:flutter/material.dart';
 
+/// Screen having options(buttons) to navigate to sign up or sign in
 class SignScreen extends StatefulWidget {
   const SignScreen({super.key});
 
@@ -35,7 +35,6 @@ class _SignScreenState extends State<SignScreen> {
             ),
             SizedBoxHeightAndWidth.sizedBoxHeight5,
             Text(
-              //src:chatgpt
               'Secure login, health insights begin. Your wellness journey, our prediction.',
               softWrap: true,
               style: TextStyleCustomized.regular16black,

@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 3), // Set the duration of the splash screen
       () {
+        // Navigation after delay of 3 seconds
         Navigator.pushReplacementNamed(context, Routes.signScreen);
       },
     );
@@ -29,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalate.white, // Set your background color
+      // Set your background color
+      backgroundColor: ColorPalate.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBoxHeightAndWidth.sizedBoxHeight15,
             Text(
-              //ref:chatgpt
               'PredictWell',
               style: TextStyleCustomized.medium30grey,
             ),

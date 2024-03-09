@@ -1,11 +1,14 @@
+import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
-import 'package:dis_pred/features/authentication/presentation/ui/components/border.dart';
+import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Screen to sign up for the application
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -20,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController number = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SignBorder(
+    return SignBorderLayout(
       title: 'Sign Up',
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,26 +74,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
               text: 'Sign Up',
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.homeScreen);
+              },
             ),
           ),
-          // Center(
-          //   child: RichText(
-          //     text: TextSpan(
-          //       text: 'Don\'t have an Account?',
-          //       children: [
-          //         TextSpan(
-          //           text: ' Sign Up',
-          //           style: medium15t,
-          //           recognizer: TapGestureRecognizer()
-          //             ..onTap = () {
-          //               log('text tapped');
-          //             },
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
+          Center(
+            child: RichText(
+              text: TextSpan(
+                text: 'Already have an Account?',
+                children: [
+                  TextSpan(
+                    text: ' Sign Up',
+                    style: TextStyleCustomized.medium15teal,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.pushNamed(context, Routes.signupScreen);
+                      },
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

@@ -4,10 +4,11 @@ import 'package:dis_pred/core/constants/padding.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:flutter/material.dart';
 
-class SignBorder extends StatelessWidget {
+/// Sign up and login screen border layout wrapping contents and text fields
+class SignBorderLayout extends StatelessWidget {
   final Widget? widget;
   final String? title;
-  const SignBorder({super.key, this.widget, this.title});
+  const SignBorderLayout({super.key, this.widget, this.title});
 
   @override
   Widget build(BuildContext context) {
