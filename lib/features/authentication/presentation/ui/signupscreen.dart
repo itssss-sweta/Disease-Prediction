@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
@@ -7,9 +7,9 @@ import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+
 /// Screen to sign up for the application
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -23,23 +23,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
-  Future<void> signUpUser() async{
+  Future<bool> signUpUser() async {
     final String emailInput = email.text;
     final String username = name.text;
     final String pw = password.text;
 
     final response = await http.post(
-      Uri.parse('http://192.168.1.69:8000/api/signup/'),
-      body : jsonEncode({
-        'email' : emailInput,
-        'username' : username,
-        'password' : pw
-      }),
-      headers: {'Content-Type' : 'application/json'}
-    );
+        Uri.parse('http://192.168.1.69:8000/api/signup/'),
+        body: jsonEncode(
+            {'email': emailInput, 'username': username, 'password': pw}),
+        headers: {'Content-Type': 'application/json'});
 
-    if(response.statusCode == 201){
-      Navigator.pushReplacementNamed(context, Routes.loginScreen);
+    log(response.body);
+    log(response.statusCode.toString());
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -89,28 +89,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               text: 'Sign Up',
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
-              onTap: () {
-                signUpUser();
+              onTap: () async {
+                bool isUserAuthenticated = await signUpUser();
+                if (isUserAuthenticated && context.mounted) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      Routes.loginScreen, (route) => false);
+                }
               },
             ),
           ),
-          Center(
-            child: RichText(
-              text: TextSpan(
-                text: 'Already have an Account?',
-                children: [
-                  TextSpan(
-                    text: ' Sign In',
-                    style: TextStyleCustomized.medium15teal,
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushNamed(context, Routes.loginScreen);
-                      },
-                  ),
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

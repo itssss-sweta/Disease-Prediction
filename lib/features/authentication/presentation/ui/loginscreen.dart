@@ -7,7 +7,6 @@ import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,9 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController password = TextEditingController();
   // final TextEditingController number = TextEditingController();
 
-  Future<void> loginUser() async {
+  Future<bool> loginUser() async {
     final String username = name.text;
     final String pw = password.text;
+    log('tapped');
     final response = await http.post(
       Uri.parse('http://192.168.1.69:8000/api/login/'),
       body: jsonEncode({
@@ -35,8 +35,12 @@ class _LoginScreenState extends State<LoginScreen> {
       }),
       headers: {'Content-Type': 'application/json'},
     );
+    log(response.body);
+    log(response.statusCode.toString());
     if (response.statusCode == 200) {
-      Navigator.pushReplacementNamed(context, Routes.homeScreen);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -79,36 +83,28 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Login',
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
-              onTap: () {
-                loginUser();
+              onTap: () async {
+                bool isAuthenticated = await loginUser();
+                if (context.mounted) {
+                  if (isAuthenticated) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.homeScreen,
+                      (route) => false,
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                        'Credentials Incorrect!',
+                      ),
+                      backgroundColor: Colors.red,
+                    ));
+                  }
+                }
               },
             ),
           ),
-          SizedBoxHeightAndWidth.sizedBoxHeight15,
-          richTextToSwitchScreen(context)
         ],
-      ),
-    );
-  }
-
-  Center richTextToSwitchScreen(BuildContext context) {
-    return Center(
-      child: RichText(
-        text: TextSpan(
-          text: 'Don\'t have an Account?',
-          style: const TextStyle(color: Colors.black),
-          children: [
-            TextSpan(
-              text: ' Sign Up',
-              style: TextStyleCustomized.medium15teal,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  log('text tapped');
-                  Navigator.pushNamed(context, Routes.signupScreen);
-                },
-            ),
-          ],
-        ),
       ),
     );
   }
