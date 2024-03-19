@@ -24,19 +24,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController password = TextEditingController();
   // final TextEditingController number = TextEditingController();
 
-  Future<void> loginUser() async{
+  Future<void> loginUser() async {
     final String username = name.text;
     final String pw = password.text;
-
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/login/'),
-      body : jsonEncode({
-        'username' : username,
-        'password' : pw,
+      Uri.parse('http://192.168.1.69:8000/api/login/'),
+      body: jsonEncode({
+        'username': username,
+        'password': pw,
       }),
-      headers: {'Content-Type' : 'application/json'},
+      headers: {'Content-Type': 'application/json'},
     );
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       Navigator.pushReplacementNamed(context, Routes.homeScreen);
     }
   }

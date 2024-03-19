@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final String pw = password.text;
 
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/signup/'),
+      Uri.parse('http://192.168.1.69:8000/api/signup/'),
       body : jsonEncode({
         'email' : emailInput,
         'username' : username,
