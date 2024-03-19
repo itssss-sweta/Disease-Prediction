@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
@@ -7,7 +9,7 @@ import 'package:dis_pred/features/authentication/presentation/ui/components/butt
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import "package:http/http.dart" as http;
 /// Screen to sign up for the application
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -20,7 +22,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
-  final TextEditingController number = TextEditingController();
+
+  Future<void> signUpUser() async{
+    final String emailInput = email.text;
+    final String username = name.text;
+    final String pw = password.text;
+
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/signup/'),
+      body : jsonEncode({
+        'email' : emailInput,
+        'username' : username,
+        'password' : pw
+      }),
+      headers: {'Content-Type' : 'application/json'}
+    );
+
+    if(response.statusCode == 201){
+      Navigator.pushReplacementNamed(context, Routes.loginScreen);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SignBorderLayout(
@@ -54,13 +76,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             type: TextInputType.emailAddress,
           ),
           TextContainer(
-            controller: number,
-            hintText: 'Enter your number',
-            icon: Icons.phone_outlined,
-            suffix: false,
-            type: TextInputType.number,
-          ),
-          TextContainer(
             controller: password,
             hintText: 'Enter your password',
             icon: Icons.lock_outlined,
@@ -75,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
               onTap: () {
-                Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                signUpUser();
               },
             ),
           ),
@@ -85,11 +100,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 text: 'Already have an Account?',
                 children: [
                   TextSpan(
-                    text: ' Sign Up',
+                    text: ' Sign In',
                     style: TextStyleCustomized.medium15teal,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.pushNamed(context, Routes.signupScreen);
+                        Navigator.pushNamed(context, Routes.loginScreen);
                       },
                   ),
                 ],

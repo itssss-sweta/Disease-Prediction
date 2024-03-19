@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
@@ -8,6 +9,7 @@ import 'package:dis_pred/features/authentication/presentation/ui/components/butt
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 /// Login Screen to enter email and password for authentication
 class LoginScreen extends StatefulWidget {
@@ -18,9 +20,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController email = TextEditingController();
+  final TextEditingController name = TextEditingController();
   final TextEditingController password = TextEditingController();
-  final TextEditingController number = TextEditingController();
+  // final TextEditingController number = TextEditingController();
+
+  Future<void> loginUser() async{
+    final String username = name.text;
+    final String pw = password.text;
+
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/login/'),
+      body : jsonEncode({
+        'username' : username,
+        'password' : pw,
+      }),
+      headers: {'Content-Type' : 'application/json'},
+    );
+    if(response.statusCode == 200){
+      Navigator.pushReplacementNamed(context, Routes.homeScreen);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SignBorderLayout(
@@ -40,11 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight35,
           TextContainer(
-            controller: email,
-            hintText: 'Enter your email',
-            icon: Icons.email_outlined,
+            controller: name,
+            hintText: 'Enter your username',
+            icon: Icons.person,
             suffix: false,
-            type: TextInputType.emailAddress,
+            type: TextInputType.name,
           ),
           TextContainer(
             controller: password,
@@ -61,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
               onTap: () {
-                Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                loginUser();
               },
             ),
           ),
