@@ -1,14 +1,13 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
+import 'package:dis_pred/features/authentication/domain/login_view_model.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 /// Login Screen to enter email and password for authentication
 class LoginScreen extends StatefulWidget {
@@ -22,27 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController name = TextEditingController();
   final TextEditingController password = TextEditingController();
   // final TextEditingController number = TextEditingController();
-
-  Future<bool> loginUser() async {
-    final String username = name.text;
-    final String pw = password.text;
-    log('tapped');
-    final response = await http.post(
-      Uri.parse('http://192.168.1.69:8000/api/login/'),
-      body: jsonEncode({
-        'username': username,
-        'password': pw,
-      }),
-      headers: {'Content-Type': 'application/json'},
-    );
-    log(response.body);
-    log(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
               onTap: () async {
-                bool isAuthenticated = await loginUser();
+                bool isAuthenticated = await context
+                    .read<LoginViewModel>()
+                    .postLoginData(name: name.text, password: password.text);
                 if (context.mounted) {
                   if (isAuthenticated) {
                     Navigator.pushNamedAndRemoveUntil(

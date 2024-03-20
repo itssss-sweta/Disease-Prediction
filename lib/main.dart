@@ -1,6 +1,8 @@
 import 'package:dis_pred/config/routes/approute.dart';
+import 'package:dis_pred/features/authentication/domain/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: AppRoute().ongenerateRoute,
-    );
+    return MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => LoginViewModel())],
+        builder: (context, child) {
+          return MaterialApp(
+            onGenerateRoute: AppRoute().ongenerateRoute,
+          );
+        });
   }
 }
