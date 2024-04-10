@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
@@ -10,6 +11,7 @@ import 'package:dis_pred/features/result/presentation/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 /// HomePage consisting a photo selector
 class HomePage extends StatefulWidget {
@@ -37,6 +39,40 @@ class _HomePageState extends State<HomePage> {
   Future<XFile?> _pickImage() async {
     XFile? pickedImage = await ImagePickerService().photoChooseOption(context);
     return pickedImage;
+  }
+
+  Future<void> _uploadImage(String token) async {
+    if (_image == null) {
+      return;
+    }
+
+    final url = Uri.parse("http://192.168.1.71:3000/api/eyepredict/");
+    final request = http.MultipartRequest('POST', url);
+
+    List<int> imageBytes = await _image!.readAsBytes();
+    Stream<List<int>> imageStream = Stream.fromIterable([imageBytes]);
+
+    request.files.add(
+      http.MultipartFile.fromBytes('image', imageBytes!,
+          filename: _image!.path.split('/').last),
+    );
+    request.headers['Authorization'] = 'Token $token';
+    try {
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        // Decode the JSON response body if applicable
+        final decodedBody = jsonDecode(responseBody);
+        // final disease = decodedBody.predictions;
+        // final img = decodedBody.path;
+        // Handle the response data as needed
+        ResultScreen.presentScreen(context,decodedBody);
+      } else {
+        print("Error uploading image $response");
+      }
+    } catch (e) {
+      print("error $e");
+    }
   }
 
   @override
@@ -100,7 +136,7 @@ class _HomePageState extends State<HomePage> {
             color: ColorPalate.teal,
             textStyle: TextStyleCustomized.semibold16white,
             onTap: () {
-              _navigateToResultScreen();
+              _uploadImage(token);
             },
           )
         ],
@@ -108,7 +144,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _navigateToResultScreen() {
-    ResultScreen.presentScreen(context);
-  }
+  // _navigateToResultScreen(String token) {
+  //   _uploadImage(token);
+  //   ResultScreen.presentScreen(context);
+  // }
 }
