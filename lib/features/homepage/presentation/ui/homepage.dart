@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    final url = Uri.parse("http://192.168.1.71:3000/api/eyepredict/");
+    final url = Uri.parse("https://eye-disease-prediction-xf00.onrender.com/api/eyepredict/");
     final request = http.MultipartRequest('POST', url);
 
     List<int> imageBytes = await _image!.readAsBytes();

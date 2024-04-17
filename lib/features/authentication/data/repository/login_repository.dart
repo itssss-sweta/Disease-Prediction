@@ -9,7 +9,7 @@ class LoginRepository {
     AuthenticationModel authenticationModel;
     log('tapped');
     final response = await http.post(
-      Uri.parse('http://192.168.1.71:3000/api/login/'),
+      Uri.parse('https://eye-disease-prediction-xf00.onrender.com/api/login/'),
       body: jsonEncode({
         'username': uname,
         'password': password,
