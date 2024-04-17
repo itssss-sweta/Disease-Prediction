@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:dis_pred/features/authentication/data/models/authentication_model.dart';
 
 class LoginRepository {
-  static Future<AuthenticationModel> loginUser(
-      {required String uname, required String password}) async {
+  static Future<({AuthenticationModel? authenticationModel, String? error})>
+      loginUser({required String uname, required String password}) async {
     AuthenticationModel authenticationModel;
     log('tapped');
     final response = await http.post(
@@ -18,12 +18,14 @@ class LoginRepository {
     );
     log(response.body);
     log(response.statusCode.toString());
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       Map<String, dynamic> decodedBody = json.decode(response.body);
       authenticationModel = AuthenticationModel.fromJson(decodedBody);
-      return authenticationModel;
-    } else {
-      return AuthenticationModel();
+      return (authenticationModel: authenticationModel, error: null);
     }
+    return (
+      error: 'Unexpected Error Occured! Please try again !',
+      authenticationModel: null
+    );
   }
 }
