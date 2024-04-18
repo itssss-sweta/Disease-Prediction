@@ -1,6 +1,7 @@
 import 'package:dis_pred/config/routes/approute.dart';
 import 'package:dis_pred/core/cache/cache_services.dart';
 import 'package:dis_pred/features/authentication/domain/login_view_model.dart';
+import 'package:dis_pred/features/homepage/domain/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => LoginViewModel())],
+        providers: [
+          ChangeNotifierProvider(create: (_) => LoginViewModel()),
+          ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ],
         builder: (context, child) {
           return MaterialApp(
             onGenerateRoute: AppRoute().ongenerateRoute,
