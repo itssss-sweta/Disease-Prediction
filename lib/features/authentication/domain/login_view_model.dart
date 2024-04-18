@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class LoginViewModel extends ChangeNotifier {
   AuthenticationModel? authenticationModel;
   String? token;
-  String? name;
+  String? userName;
 
   CacheServices cacheServices = CacheServices();
 
@@ -14,13 +14,14 @@ class LoginViewModel extends ChangeNotifier {
       {required String name, required String password}) async {
     ({AuthenticationModel? authenticationModel, String? error}) response =
         await LoginRepository.loginUser(password: password, uname: name);
-    if (response.error != null) {
+    if (response.error == null) {
       token = response.authenticationModel?.token ?? '';
       cacheServices.saveToken(token ?? '');
-      name = response.authenticationModel?.username ?? '';
-      cacheServices.saveToken(name);
+      userName = response.authenticationModel?.username ?? '';
+      cacheServices.saveToken(userName ?? "");
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 }
