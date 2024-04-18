@@ -4,6 +4,7 @@ import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
+import 'package:dis_pred/core/validators/text_field_validator.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/textfields.dart';
@@ -29,7 +30,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final String pw = password.text;
 
     final response = await http.post(
-        Uri.parse('https://eye-disease-prediction-xf00.onrender.com/api/signup/'),
+        Uri.parse(
+            'https://eye-disease-prediction-xf00.onrender.com/api/signup/'),
         body: jsonEncode(
             {'email': emailInput, 'username': username, 'password': pw}),
         headers: {'Content-Type': 'application/json'});
@@ -61,27 +63,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
             style: TextStyleCustomized.semibold16teal,
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight35,
-          TextContainer(
+          BaseTextFieldWidget(
             controller: name,
             hintText: 'Enter your name',
             icon: Icons.person,
             suffix: false,
             type: TextInputType.name,
+            validator: TextFieldValidator.validateNameField,
           ),
-          TextContainer(
+          BaseTextFieldWidget(
             controller: email,
             hintText: 'Enter your email',
             icon: Icons.email_outlined,
             suffix: false,
             type: TextInputType.emailAddress,
+            validator: TextFieldValidator.validateEmailField,
           ),
-          TextContainer(
+          BaseTextFieldWidget(
             controller: password,
             hintText: 'Enter your password',
             icon: Icons.lock_outlined,
             suffix: true,
             type: TextInputType.visiblePassword,
             obscureText: true,
+            validator: TextFieldValidator.validatePasswordField,
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight15,
           Center(

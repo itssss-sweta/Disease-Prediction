@@ -2,14 +2,15 @@ import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:flutter/material.dart';
 
-class TextContainer extends StatefulWidget {
+class BaseTextFieldWidget extends StatefulWidget {
   final TextEditingController? controller;
   final IconData? icon;
   final String? hintText;
   final bool? suffix;
   final TextInputType? type;
   final bool? obscureText;
-  const TextContainer({
+  final String? Function(String?)? validator;
+  const BaseTextFieldWidget({
     super.key,
     this.controller,
     this.icon,
@@ -17,13 +18,14 @@ class TextContainer extends StatefulWidget {
     this.suffix,
     this.type,
     this.obscureText,
+    this.validator,
   });
 
   @override
-  State<TextContainer> createState() => _TextContainerState();
+  State<BaseTextFieldWidget> createState() => _BaseTextFieldWidgetState();
 }
 
-class _TextContainerState extends State<TextContainer> {
+class _BaseTextFieldWidgetState extends State<BaseTextFieldWidget> {
   bool showPassword = false;
 
   void showOrHidePassword() {
@@ -50,6 +52,8 @@ class _TextContainerState extends State<TextContainer> {
                       ? widget.obscureText == false
                       : widget.obscureText == true
                   : false,
+              validator: widget.validator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 prefixIcon: Padding(
