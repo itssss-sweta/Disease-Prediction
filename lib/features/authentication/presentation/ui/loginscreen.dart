@@ -1,5 +1,4 @@
 import 'package:dis_pred/config/routes/route.dart';
-import 'package:dis_pred/core/cache/cache_services.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
@@ -68,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     .postLoginData(name: name.text, password: password.text);
                 if (context.mounted) {
                   if (isAuthenticated) {
-                    CacheServices.getCacheServicesInstance.saveIsLogin(true);
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       Routes.homeScreen,
