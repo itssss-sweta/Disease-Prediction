@@ -41,4 +41,9 @@ class CacheServices {
   ///
   /// Returns true if the user is logged in, false otherwise.
   bool getIsLogin() => sharedPreferences.getBool(_loginKey) ?? false;
+
+  Future<void> clearCacheData() async {
+    await sharedPreferences.clear();
+    saveIsLogin(false);
+  }
 }
