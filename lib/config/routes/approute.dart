@@ -8,9 +8,8 @@ import 'package:dis_pred/features/homepage/presentation/ui/homepage.dart';
 import 'package:flutter/material.dart';
 
 class AppRoute {
-  bool isUserLoggedIn = CacheServices.getCacheServicesInstance.getIsLogin();
-
   Route? ongenerateRoute(RouteSettings settings) {
+    bool isUserLoggedIn = CacheServices.getCacheServicesInstance.getIsLogin();
     switch (settings.name) {
       case Routes.signScreen:
         {
@@ -44,13 +43,13 @@ class AppRoute {
         }
       case Routes.loginScreen:
         {
-          if (!isUserLoggedIn) {
+          if (isUserLoggedIn) {
             return MaterialPageRoute(
-              builder: (context) => const LoginScreen(),
+              builder: (context) => const HomePage(),
             );
           } else {
             return MaterialPageRoute(
-              builder: (context) => const HomePage(),
+              builder: (context) => const LoginScreen(),
             );
           }
         }
