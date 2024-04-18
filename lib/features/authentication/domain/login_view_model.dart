@@ -46,4 +46,11 @@ class LoginViewModel extends ChangeNotifier {
     nameController?.dispose();
     passwordController?.dispose();
   }
+
+  bool isButtonEnabled = true;
+
+  setButtonEnable(bool value) {
+    isButtonEnabled = value;
+    notifyListeners();
+  }
 }

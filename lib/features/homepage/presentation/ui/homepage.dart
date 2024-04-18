@@ -40,13 +40,16 @@ class _HomePageState extends State<HomePage> {
     if (context.read<HomeViewModel>().image == null) {
       return;
     }
+    context.read<HomeViewModel>().setButtonEnable(false);
     final predictResponse = await context.read<HomeViewModel>().uploadImage();
     if (predictResponse.errorMessage == null) {
       if (context.mounted) {
+        context.read<HomeViewModel>().setButtonEnable(true);
         ResultScreen.presentScreen(context);
       }
     } else {
       if (!context.mounted) return;
+      context.read<HomeViewModel>().setButtonEnable(true);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
           predictResponse.errorMessage ?? '',
@@ -118,15 +121,17 @@ class _HomePageState extends State<HomePage> {
           ),
           Button(
             text: 'Predict',
-            color: context.watch<HomeViewModel>().image != null
-                ? ColorPalate.teal
-                : ColorPalate.lightGrey,
+            color: (context.watch<HomeViewModel>().image == null ||
+                    !context.watch<HomeViewModel>().isButtonEnabled)
+                ? ColorPalate.lightGrey
+                : ColorPalate.teal,
             textStyle: TextStyleCustomized.semibold16white,
-            onTap: context.watch<HomeViewModel>().image != null
-                ? () {
+            onTap: (context.watch<HomeViewModel>().image == null ||
+                    !context.watch<HomeViewModel>().isButtonEnabled)
+                ? null
+                : () {
                     _uploadImage(context);
-                  }
-                : null,
+                  },
           )
         ],
       ),
