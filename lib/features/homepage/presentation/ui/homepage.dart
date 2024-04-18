@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'package:dis_pred/config/routes/route.dart';
-import 'package:dis_pred/core/cache/cache_services.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
 import 'package:dis_pred/features/homepage/domain/home_view_model.dart';
+import 'package:dis_pred/features/homepage/presentation/components/alert_dialog_widget.dart';
 import 'package:dis_pred/features/homepage/presentation/components/image_with_replacing_button.dart';
 import 'package:dis_pred/features/homepage/presentation/components/photo_picker_modal_bottom_sheet.dart';
 import 'package:dis_pred/features/homepage/presentation/ui/result_screen.dart';
@@ -69,10 +68,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                CacheServices.getCacheServicesInstance.clearCacheData();
-                context.read<HomeViewModel>().image = null;
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    Routes.loginScreen, (route) => false);
+                showAlertDialog(context);
               },
               icon: const Icon(Icons.logout_outlined))
         ],
@@ -122,11 +118,15 @@ class _HomePageState extends State<HomePage> {
           ),
           Button(
             text: 'Predict',
-            color: ColorPalate.teal,
+            color: context.watch<HomeViewModel>().image != null
+                ? ColorPalate.teal
+                : ColorPalate.lightGrey,
             textStyle: TextStyleCustomized.semibold16white,
-            onTap: () {
-              _uploadImage(context);
-            },
+            onTap: context.watch<HomeViewModel>().image != null
+                ? () {
+                    _uploadImage(context);
+                  }
+                : null,
           )
         ],
       ),
