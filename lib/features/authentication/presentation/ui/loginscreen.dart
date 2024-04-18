@@ -80,16 +80,19 @@ class _LoginScreenState extends State<LoginScreen> {
               textStyle: TextStyleCustomized.semibold16white,
               onTap: (context.watch<LoginViewModel>().isButtonEnabled)
                   ? () async {
+                      loginProvider.setButtonEnable(false);
                       final shouldProceed = await loginProvider.validateForm();
                       if (shouldProceed?.successValidation ?? false) {
                         if (context.mounted) {
                           if (shouldProceed?.isAuthentication ?? false) {
+                            loginProvider.setButtonEnable(true);
                             Navigator.pushNamedAndRemoveUntil(
                               context,
                               Routes.homeScreen,
                               (route) => false,
                             );
                           } else {
+                            loginProvider.setButtonEnable(true);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               content: Text(

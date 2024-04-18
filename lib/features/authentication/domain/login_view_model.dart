@@ -17,8 +17,6 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<bool> postLoginData(
       {required String name, required String password}) async {
-    setButtonEnable(false);
-    notifyListeners();
     ({AuthenticationModel? authenticationModel, String? error}) response =
         await LoginRepository.loginUser(password: password, uname: name);
     if (response.error == null) {
@@ -27,12 +25,8 @@ class LoginViewModel extends ChangeNotifier {
       userName = response.authenticationModel?.username ?? '';
       cacheServices.saveName(userName ?? "");
       cacheServices.saveIsLogin(true);
-      setButtonEnable(true);
-      notifyListeners();
       return true;
     } else {
-      setButtonEnable(true);
-      notifyListeners();
       return false;
     }
   }
@@ -57,5 +51,6 @@ class LoginViewModel extends ChangeNotifier {
 
   setButtonEnable(bool value) {
     isButtonEnabled = value;
+    notifyListeners();
   }
 }
