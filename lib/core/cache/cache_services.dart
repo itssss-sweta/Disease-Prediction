@@ -14,31 +14,31 @@ class CacheServices {
   Future<SharedPreferences> initPreferences() async =>
       sharedPreferences = await SharedPreferences.getInstance();
 
-  static String tokenKey = 'token_key';
-  static String userNameKey = 'user_name';
-  static String loginKey = 'isLogin';
+  static const _tokenKey = 'token_key';
+  static const _userNameKey = 'user_name';
+  static const _loginKey = 'isLogin';
 
-  void saveToken(String token) async {
-    await sharedPreferences.setString(tokenKey, token);
+  Future<bool> saveToken(String token) async {
+    return await sharedPreferences.setString(_tokenKey, token);
   }
 
-  void saveName(String name) async {
-    await sharedPreferences.setString(userNameKey, name);
+  Future<bool> saveName(String name) async {
+    return await sharedPreferences.setString(_userNameKey, name);
   }
 
-  String? get getName => sharedPreferences.getString(userNameKey);
+  String? get getName => sharedPreferences.getString(_userNameKey);
 
-  String? get getToken => sharedPreferences.getString(tokenKey);
+  String? get getToken => sharedPreferences.getString(_tokenKey);
 
   /// Save boolean value indicating user login status to disk.
   ///
   /// * [value]: The boolean value to save (true for logged in, false for logged out).
   Future<bool> saveIsLogin(bool value) async {
-    return await sharedPreferences.setBool(loginKey, value);
+    return await sharedPreferences.setBool(_loginKey, value);
   }
 
   /// Get saved user login status from disk.
   ///
   /// Returns true if the user is logged in, false otherwise.
-  bool getIsLogin() => sharedPreferences.getBool(loginKey) ?? false;
+  bool getIsLogin() => sharedPreferences.getBool(_loginKey) ?? false;
 }
