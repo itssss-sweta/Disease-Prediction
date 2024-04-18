@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:dis_pred/config/routes/route.dart';
+import 'package:dis_pred/core/cache/cache_services.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
@@ -45,7 +47,8 @@ class _HomePageState extends State<HomePage> {
         ResultScreen.presentScreen(context);
       }
     } else {
-      ScaffoldMessengerState().showSnackBar(SnackBar(
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
           predictResponse.errorMessage ?? '',
         ),
@@ -63,6 +66,16 @@ class _HomePageState extends State<HomePage> {
           'PredictWell',
           style: TextStyleCustomized.bold20white,
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                CacheServices.sharedPreferences.clear();
+                CacheServices.getCacheServicesInstance.saveIsLogin(false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.loginScreen, (route) => false);
+              },
+              icon: const Icon(Icons.logout_outlined))
+        ],
         backgroundColor: ColorPalate.teal,
         automaticallyImplyLeading: false,
       ),
