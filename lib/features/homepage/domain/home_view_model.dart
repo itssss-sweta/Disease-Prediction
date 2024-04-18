@@ -14,11 +14,19 @@ class HomeViewModel extends ChangeNotifier {
       String? error,
       PredictionResponseModel? predictionResponseModel
     }) response = await HomeRepository.predictDisease(image: image ?? File(''));
+
     if (response.error == null) {
       predictionResponseModel = response.predictionResponseModel;
       return (responseModel: predictionResponseModel, errorMessage: null);
     } else {
       return (responseModel: null, errorMessage: response.error);
     }
+  }
+
+  bool isButtonEnabled = true;
+
+  setButtonEnable(bool value) {
+    isButtonEnabled = value;
+    notifyListeners();
   }
 }

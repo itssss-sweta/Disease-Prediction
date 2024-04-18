@@ -74,29 +74,34 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: Button(
               text: 'Login',
-              color: ColorPalate.teal,
+              color: (context.watch<LoginViewModel>().isButtonEnabled)
+                  ? ColorPalate.teal
+                  : ColorPalate.lightGrey,
               textStyle: TextStyleCustomized.semibold16white,
-              onTap: () async {
-                final shouldProceed = await loginProvider.validateForm();
-                if (shouldProceed?.successValidation ?? false) {
-                  if (context.mounted) {
-                    if (shouldProceed?.isAuthentication ?? false) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        Routes.homeScreen,
-                        (route) => false,
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                          'Credentials Incorrect!',
-                        ),
-                        backgroundColor: Colors.red,
-                      ));
+              onTap: (context.watch<LoginViewModel>().isButtonEnabled)
+                  ? () async {
+                      final shouldProceed = await loginProvider.validateForm();
+                      if (shouldProceed?.successValidation ?? false) {
+                        if (context.mounted) {
+                          if (shouldProceed?.isAuthentication ?? false) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Routes.homeScreen,
+                              (route) => false,
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                'Credentials Incorrect!',
+                              ),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        }
+                      }
                     }
-                  }
-                }
-              },
+                  : null,
             ),
           )
         ],
