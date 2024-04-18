@@ -18,7 +18,9 @@ class LoginViewModel extends ChangeNotifier {
       token = response.authenticationModel?.token ?? '';
       cacheServices.saveToken(token ?? '');
       userName = response.authenticationModel?.username ?? '';
-      cacheServices.saveToken(userName ?? "");
+      cacheServices.saveName(userName ?? "");
+      cacheServices.saveIsLogin(true);
+
       return true;
     } else {
       return false;
