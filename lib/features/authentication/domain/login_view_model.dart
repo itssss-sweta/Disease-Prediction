@@ -10,6 +10,11 @@ class LoginViewModel extends ChangeNotifier {
 
   CacheServices cacheServices = CacheServices();
 
+  TextEditingController? nameController;
+  TextEditingController? passwordController;
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   Future<bool> postLoginData(
       {required String name, required String password}) async {
     ({AuthenticationModel? authenticationModel, String? error}) response =
@@ -20,10 +25,25 @@ class LoginViewModel extends ChangeNotifier {
       userName = response.authenticationModel?.username ?? '';
       cacheServices.saveName(userName ?? "");
       cacheServices.saveIsLogin(true);
-
       return true;
     } else {
       return false;
     }
+  }
+
+  Future<({bool? isAuthentication, bool? successValidation})>?
+      validateForm() async {
+    if (formKey.currentState?.validate() ?? false) {
+      bool isAuthenticated = await postLoginData(
+          name: nameController?.text ?? '',
+          password: passwordController?.text ?? "");
+      return (isAuthentication: isAuthenticated, successValidation: true);
+    }
+    return (isAuthentication: null, successValidation: false);
+  }
+
+  void disposeControllers() {
+    nameController?.dispose();
+    passwordController?.dispose();
   }
 }
