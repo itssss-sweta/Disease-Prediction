@@ -69,8 +69,8 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                CacheServices.sharedPreferences.clear();
-                CacheServices.getCacheServicesInstance.saveIsLogin(false);
+                CacheServices.getCacheServicesInstance.clearCacheData();
+                context.read<HomeViewModel>().image = null;
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     Routes.loginScreen, (route) => false);
               },
