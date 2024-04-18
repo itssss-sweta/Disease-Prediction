@@ -2,6 +2,7 @@ import 'package:dis_pred/config/routes/route.dart';
 import 'package:dis_pred/core/constants/colors.dart';
 import 'package:dis_pred/core/constants/sizedbox.dart';
 import 'package:dis_pred/core/constants/textstyle.dart';
+import 'package:dis_pred/core/validators/text_field_validator.dart';
 import 'package:dis_pred/features/authentication/domain/login_view_model.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/authentication_screens_border_layout.dart';
 import 'package:dis_pred/features/authentication/presentation/ui/components/buttons.dart';
@@ -18,12 +19,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController name = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  // final TextEditingController number = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    final loginProvider = context.read<LoginViewModel>();
+    loginProvider.nameController = TextEditingController();
+    loginProvider.passwordController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = context.read<LoginViewModel>();
     return SignBorderLayout(
       title: 'Login',
       widget: Column(
@@ -40,20 +46,29 @@ class _LoginScreenState extends State<LoginScreen> {
             style: TextStyleCustomized.semibold16teal,
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight35,
-          TextContainer(
-            controller: name,
-            hintText: 'Enter your username',
-            icon: Icons.person,
-            suffix: false,
-            type: TextInputType.name,
-          ),
-          TextContainer(
-            controller: password,
-            hintText: 'Enter your password',
-            icon: Icons.lock_outlined,
-            suffix: true,
-            type: TextInputType.visiblePassword,
-            obscureText: true,
+          Form(
+            key: context.read<LoginViewModel>().formKey,
+            child: Column(
+              children: [
+                BaseTextFieldWidget(
+                  controller: loginProvider.nameController,
+                  hintText: 'Enter your username',
+                  icon: Icons.person,
+                  suffix: false,
+                  type: TextInputType.name,
+                  validator: TextFieldValidator.validateNameField,
+                ),
+                BaseTextFieldWidget(
+                  controller: loginProvider.passwordController,
+                  hintText: 'Enter your password',
+                  icon: Icons.lock_outlined,
+                  suffix: true,
+                  type: TextInputType.visiblePassword,
+                  obscureText: true,
+                  validator: TextFieldValidator.validatePasswordField,
+                ),
+              ],
+            ),
           ),
           SizedBoxHeightAndWidth.sizedBoxHeight15,
           Center(
@@ -62,28 +77,28 @@ class _LoginScreenState extends State<LoginScreen> {
               color: ColorPalate.teal,
               textStyle: TextStyleCustomized.semibold16white,
               onTap: () async {
-                bool isAuthenticated = await context
-                    .read<LoginViewModel>()
-                    .postLoginData(name: name.text, password: password.text);
-                if (context.mounted) {
-                  if (isAuthenticated) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Routes.homeScreen,
-                      (route) => false,
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                        'Credentials Incorrect!',
-                      ),
-                      backgroundColor: Colors.red,
-                    ));
+                final shouldProceed = await loginProvider.validateForm();
+                if (shouldProceed?.successValidation ?? false) {
+                  if (context.mounted) {
+                    if (shouldProceed?.isAuthentication ?? false) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.homeScreen,
+                        (route) => false,
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          'Credentials Incorrect!',
+                        ),
+                        backgroundColor: Colors.red,
+                      ));
+                    }
                   }
                 }
               },
             ),
-          ),
+          )
         ],
       ),
     );
